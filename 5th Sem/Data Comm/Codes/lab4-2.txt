@@ -1,0 +1,50 @@
+clc;
+clear all;
+close all;
+amp=5;
+fp=4;
+
+fc1=50;
+fc2=100;
+t=0:0.001:1;
+c1=amp/2.*sin(2*pi*fc1*t);
+c2=amp/2.*sin(2*pi*fc2*t);
+
+subplot(4,1,1);
+plot(t,c1);
+grid on;
+xlabel('time');
+ylabel('amplitude');
+title('Carrier 1/AA/21');
+legend('carrier 1 wave');
+
+subplot(4,1,2);
+plot(t,c2);
+grid on;
+xlabel('time');
+ylabel('amplitude');
+title('Carrier 2/AA/21');
+legend('carrier 2 wave');
+
+m=amp/2.*square(2*pi*fp*t)+(amp/2);
+subplot(4,1,3);
+plot(t,m);
+grid on;
+xlabel('time');
+ylabel('amplitude');
+legend('message signal');
+
+for i=0:1000
+    if m(i+1)==0
+        a(i+1)=c2(i+1);
+    else 
+        a(i+1)=c1(i+1);
+    end 
+end
+subplot(4,1,4);
+plot(t,a);
+grid on;
+xlabel('angle');
+ylabel('amplitude');
+legend('FSK Signal');
+title('Frequency shift keying/AA/21');
